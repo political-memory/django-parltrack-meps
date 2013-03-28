@@ -5,6 +5,13 @@ Member of the parliament importation (from [parltrack](https://parltrack.euwiki.
 
 In other words, this is the data of all the Member of the European Parliament: contact informations, committees, deleguations, groups, etc...
 
+Data Schema
+===========
+
+You can find a visualisation [here](https://raw.github.com/Psycojoker/django-parltrack-meps/master/graph.png).
+Logic is pretty simple: MEP (Member of the European Parliament) at the center
+and many2many with every instance.
+
 Licence
 =======
 
