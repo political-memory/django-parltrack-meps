@@ -5,6 +5,15 @@ Member of the parliament importation (from [parltrack](https://parltrack.euwiki.
 
 In other words, this is the data of all the Member of the European Parliament: contact informations, committees, deleguations, groups, etc...
 
+Usage
+=====
+
+Run:
+
+    python manage.py update_meps
+
+To import the last data on the MEPs.
+
 Data Schema
 ===========
 
