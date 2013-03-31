@@ -220,8 +220,6 @@ def change_mep_details(mep, mep_json):
     print "     update mep full name"
     mep.full_name = "%s %s" % (mep_json["Name"]["sur"], mep_json["Name"]["family"])
     print "     update mep gender"
-    for alias in mep_json["Name"]["aliases"]:
-        get_or_create(NameVariation, mep=mep, name=alias)
     if mep_json["Gender"] == u'n/a':
         mep.gender = None
     else:
@@ -318,6 +316,8 @@ def create_mep(mep_json):
     if mep_json.get("Addresses"):
         add_addrs(mep, mep_json["Addresses"])
     mep.save()
+    for alias in mep_json["Name"]["aliases"]:
+        get_or_create(NameVariation, mep=mep, name=alias)
     add_committees(mep, mep_json.get("Committees", []))
     add_delegations(mep, mep_json.get("Delegations", []))
     add_countries(mep, mep_json["Constituencies"])
