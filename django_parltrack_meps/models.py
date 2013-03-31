@@ -243,6 +243,11 @@ class MEP(models.Model):
         ordering = ['last_name']
 
 
+class NameVariation(models.Model):
+    name = models.CharField(max_length=255)
+    mep = models.ForeignKey(MEP)
+
+
 class GroupMEP(models.Model):
     mep = models.ForeignKey(MEP)
     group = models.ForeignKey(Group)
@@ -330,6 +335,7 @@ class AssistantMEP(models.Model):
     mep = models.ForeignKey(MEP)
     assistant = models.ForeignKey(Assistant)
     type = models.CharField(max_length=255)
+
 
 class Email(models.Model):
     email = models.EmailField()

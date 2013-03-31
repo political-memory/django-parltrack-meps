@@ -33,7 +33,7 @@ from django_parltrack_meps.models import (Party, MEP, Delegation,
                                           OrganizationMEP, Committee,
                                           CommitteeRole, Group, GroupMEP,
                                           Building, Assistant, AssistantMEP,
-                                          PartyMEP, Email, WebSite, CV)
+                                          PartyMEP, Email, WebSite, CV, NameVariation)
 
 # XXX
 JSON_DUMP_ARCHIVE_LOCALIZATION = join("/tmp", "ep_meps_current.json.xz")
@@ -220,6 +220,8 @@ def change_mep_details(mep, mep_json):
     print "     update mep full name"
     mep.full_name = "%s %s" % (mep_json["Name"]["sur"], mep_json["Name"]["family"])
     print "     update mep gender"
+    for alias in mep_json["Name"]["aliases"]:
+        get_or_create(NameVariation, mep=mep, name=alias)
     if mep_json["Gender"] == u'n/a':
         mep.gender = None
     else:
