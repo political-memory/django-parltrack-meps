@@ -27,7 +27,7 @@ from django.core.management.base import BaseCommand
 from django.db.models import Count
 from django.db import transaction
 
-from django_parltrack_meps.models import (Party, MEP, Delegation,
+from parltrack_meps.models import (Party, MEP, Delegation,
                                           DelegationRole, PostalAddress,
                                           Country, CountryMEP, Organization,
                                           OrganizationMEP, Committee,

@@ -18,7 +18,7 @@
 
 from tastypie import fields
 from tastypie.resources import ModelResource
-from django_parltrack_meps.models import Country,\
+from parltrack_meps.models import Country,\
                                 LocalParty,\
                                 Group,\
                                 Delegation,\
@@ -35,14 +35,14 @@ from django_parltrack_meps.models import Country,\
 
 
 class MEPCountryResource(ModelResource):
-    countrymep_set = fields.ToManyField("django_parltrack_meps.api.MEPCountryMEPResource", "countrymep_set")
+    countrymep_set = fields.ToManyField("parltrack_meps.api.MEPCountryMEPResource", "countrymep_set")
 
     class Meta:
         queryset = Country.objects.all()
 
 
 class MEPLocalPartyResource(ModelResource):
-    countrymep_set = fields.ToManyField("django_parltrack_meps.api.MEPCountryMEPResource", "countrymep_set")
+    countrymep_set = fields.ToManyField("parltrack_meps.api.MEPCountryMEPResource", "countrymep_set")
     country = fields.ForeignKey(MEPCountryResource, "country")
 
     class Meta:
@@ -50,20 +50,20 @@ class MEPLocalPartyResource(ModelResource):
 
 
 class MEPGroupResource(ModelResource):
-    groupmep_set = fields.ToManyField("django_parltrack_meps.api.MEPGroupMEPResource", "groupmep_set")
+    groupmep_set = fields.ToManyField("parltrack_meps.api.MEPGroupMEPResource", "groupmep_set")
     class Meta:
         queryset = Group.objects.all()
 
 
 class MEPDelegationResource(ModelResource):
-    delegationrole_set = fields.ToManyField("django_parltrack_meps.api.MEPDelegationRoleResource", "delegationrole_set")
+    delegationrole_set = fields.ToManyField("parltrack_meps.api.MEPDelegationRoleResource", "delegationrole_set")
 
     class Meta:
         queryset = Delegation.objects.all()
 
 
 class MEPCommitteeResource(ModelResource):
-    committeerole_set = fields.ToManyField("django_parltrack_meps.api.MEPCommitteeRoleResource", "committeerole_set")
+    committeerole_set = fields.ToManyField("parltrack_meps.api.MEPCommitteeRoleResource", "committeerole_set")
 
     class Meta:
         queryset = Committee.objects.all()
@@ -75,7 +75,7 @@ class MEPBuildingResource(ModelResource):
 
 
 class MEPOrganizationResource(ModelResource):
-    organizationmep_set = fields.ToManyField("django_parltrack_meps.api.MEPOrganizationMEPResource", "organizationmep_set")
+    organizationmep_set = fields.ToManyField("parltrack_meps.api.MEPOrganizationMEPResource", "organizationmep_set")
 
     class Meta:
         queryset = Organization.objects.all()
@@ -84,11 +84,11 @@ class MEPOrganizationResource(ModelResource):
 class MEPMEPResource(ModelResource):
     bxl_building = fields.ForeignKey(MEPBuildingResource, "bxl_building")
     stg_building = fields.ForeignKey(MEPBuildingResource, "stg_building")
-    countrymep_set = fields.ToManyField("django_parltrack_meps.api.MEPCountryMEPResource", "countrymep_set")
-    groupmep_set = fields.ToManyField("django_parltrack_meps.api.MEPGroupMEPResource", "groupmep_set")
-    delegationrole_set = fields.ToManyField("django_parltrack_meps.api.MEPDelegationRoleResource", "delegationrole_set")
-    committeerole_set = fields.ToManyField("django_parltrack_meps.api.MEPCommitteeRoleResource", "committeerole_set")
-    organizationmep_set = fields.ToManyField("django_parltrack_meps.api.MEPOrganizationMEPResource", "organizationmep_set")
+    countrymep_set = fields.ToManyField("parltrack_meps.api.MEPCountryMEPResource", "countrymep_set")
+    groupmep_set = fields.ToManyField("parltrack_meps.api.MEPGroupMEPResource", "groupmep_set")
+    delegationrole_set = fields.ToManyField("parltrack_meps.api.MEPDelegationRoleResource", "delegationrole_set")
+    committeerole_set = fields.ToManyField("parltrack_meps.api.MEPCommitteeRoleResource", "committeerole_set")
+    organizationmep_set = fields.ToManyField("parltrack_meps.api.MEPOrganizationMEPResource", "organizationmep_set")
 
     class Meta:
         queryset = MEP.objects.all()
