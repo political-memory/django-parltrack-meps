@@ -22,6 +22,7 @@ import os
 import json
 from os.path import join
 from datetime import datetime
+import urllib
 
 from django.core.management.base import BaseCommand
 from django.db.models import Count
@@ -57,13 +58,15 @@ class Command(BaseCommand):
     help = 'Update the eurodeputies data by pulling it from parltrack'
 
     def handle(self, *args, **options):
+        if os.system("which unxz > /dev/null") != 0:
+            raise Exception("unxz binary missing, please install xz")
         print "clean old downloaded files"
         if os.path.exists(JSON_DUMP_ARCHIVE_LOCALIZATION):
-            os.system("rm %s" % (JSON_DUMP_ARCHIVE_LOCALIZATION))
+            os.remove(JSON_DUMP_ARCHIVE_LOCALIZATION)
         if os.path.exists(JSON_DUMP_LOCALIZATION):
-            os.system("rm %s" % (JSON_DUMP_LOCALIZATION))
+            os.remove(JSON_DUMP_LOCALIZATION)
         print "download lastest data dump of meps from parltrack"
-        os.system("wget http://parltrack.euwiki.org/dumps/ep_meps_current.json.xz -O %s" % JSON_DUMP_ARCHIVE_LOCALIZATION)
+        urllib.urlretrieve('http://parltrack.euwiki.org/dumps/ep_meps_current.json.xz', JSON_DUMP_ARCHIVE_LOCALIZATION)
         print "unxz dump"
         os.system("unxz %s" % JSON_DUMP_ARCHIVE_LOCALIZATION)
         print "load json"
