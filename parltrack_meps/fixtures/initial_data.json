@@ -4,7 +4,7 @@
             "code": "AT", 
             "name": "Austria"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 292
     }, 
     {
@@ -12,7 +12,7 @@
             "code": "BE", 
             "name": "Belgium"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 295
     }, 
     {
@@ -20,7 +20,7 @@
             "code": "BG", 
             "name": "Bulgaria"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 293
     }, 
     {
@@ -28,7 +28,7 @@
             "code": "CY", 
             "name": "Cyprus"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 298
     }, 
     {
@@ -36,7 +36,7 @@
             "code": "CZ", 
             "name": "Czech Republic"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 291
     }, 
     {
@@ -44,7 +44,7 @@
             "code": "DE", 
             "name": "Germany"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 283
     }, 
     {
@@ -52,7 +52,7 @@
             "code": "DK", 
             "name": "Denmark"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 294
     }, 
     {
@@ -60,7 +60,7 @@
             "code": "EE", 
             "name": "Estonia"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 302
     }, 
     {
@@ -68,7 +68,7 @@
             "code": "ES", 
             "name": "Spain"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 279
     }, 
     {
@@ -76,7 +76,7 @@
             "code": "FI", 
             "name": "Finland"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 296
     }, 
     {
@@ -84,7 +84,7 @@
             "code": "FR", 
             "name": "France"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 280
     }, 
     {
@@ -92,7 +92,7 @@
             "code": "GB", 
             "name": "United Kingdom"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 289
     }, 
     {
@@ -100,7 +100,7 @@
             "code": "GR", 
             "name": "Greece"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 297
     }, 
     {
@@ -108,7 +108,7 @@
             "code": "HU", 
             "name": "Hungary"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 277
     }, 
     {
@@ -116,7 +116,7 @@
             "code": "IE", 
             "name": "Ireland"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 282
     }, 
     {
@@ -124,7 +124,7 @@
             "code": "IT", 
             "name": "Italy"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 284
     }, 
     {
@@ -132,7 +132,7 @@
             "code": "LT", 
             "name": "Lithuania"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 287
     }, 
     {
@@ -140,7 +140,7 @@
             "code": "LU", 
             "name": "Luxembourg"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 299
     }, 
     {
@@ -148,7 +148,7 @@
             "code": "LV", 
             "name": "Latvia"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 285
     }, 
     {
@@ -156,7 +156,7 @@
             "code": "MT", 
             "name": "Malta"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 301
     }, 
     {
@@ -164,7 +164,7 @@
             "code": "NL", 
             "name": "Netherlands"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 300
     }, 
     {
@@ -172,7 +172,7 @@
             "code": "PL", 
             "name": "Poland"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 276
     }, 
     {
@@ -180,7 +180,7 @@
             "code": "PT", 
             "name": "Portugal"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 290
     }, 
     {
@@ -188,7 +188,7 @@
             "code": "RO", 
             "name": "Romania"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 278
     }, 
     {
@@ -196,7 +196,7 @@
             "code": "SE", 
             "name": "Sweden"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 286
     }, 
     {
@@ -204,7 +204,7 @@
             "code": "SI", 
             "name": "Slovenia"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 288
     }, 
     {
@@ -212,7 +212,7 @@
             "code": "SK", 
             "name": "Slovakia"
         }, 
-        "model": "django_parltrack_meps.country", 
+        "model": "parltrack_meps.country", 
         "pk": 281
     }, 
     {
@@ -220,7 +220,7 @@
             "abbreviation": "ECR", 
             "name": "European Conservatives and Reformists"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 121
     }, 
     {
@@ -228,7 +228,7 @@
             "abbreviation": "SD", 
             "name": "Group of the Progressive Alliance of Socialists and Democrats in the European Parliament"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 122
     }, 
     {
@@ -236,7 +236,7 @@
             "abbreviation": "EPP", 
             "name": "Group of the European People's Party (Christian Democrats)"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 123
     }, 
     {
@@ -244,7 +244,7 @@
             "abbreviation": "ALDE", 
             "name": "Group of the Alliance of Liberals and Democrats for Europe"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 124
     }, 
     {
@@ -252,7 +252,7 @@
             "abbreviation": "GUE/NGL", 
             "name": "Confederal Group of the European United Left - Nordic Green Left"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 125
     }, 
     {
@@ -260,7 +260,7 @@
             "abbreviation": "Greens/EFA", 
             "name": "Group of the Greens/European Free Alliance"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 126
     }, 
     {
@@ -268,7 +268,7 @@
             "abbreviation": "NI", 
             "name": "Non-attached Members"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 127
     }, 
     {
@@ -276,7 +276,7 @@
             "abbreviation": "EFD", 
             "name": "Europe of freedom and democracy Group"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 128
     }, 
     {
@@ -284,7 +284,7 @@
             "abbreviation": "PPE-DE", 
             "name": "Group of the European People's Party (Christian Democrats) and European Democrats"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 129
     }, 
     {
@@ -292,7 +292,7 @@
             "abbreviation": "PSE", 
             "name": "Socialist Group in the European Parliament"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 130
     }, 
     {
@@ -300,7 +300,7 @@
             "abbreviation": "UEN", 
             "name": "Union for Europe of the Nations Group"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 131
     }, 
     {
@@ -308,7 +308,7 @@
             "abbreviation": "IND/DEM", 
             "name": "Independence/Democracy Group"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 132
     }, 
     {
@@ -316,7 +316,7 @@
             "abbreviation": "EDD", 
             "name": "Group for a Europe of Democracies and Diversities"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 133
     }, 
     {
@@ -324,7 +324,7 @@
             "abbreviation": "ITS", 
             "name": "Identity, Tradition and Sovereignty Group"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 134
     }, 
     {
@@ -332,7 +332,7 @@
             "abbreviation": "ELDR", 
             "name": "Group of the European Liberal, Democrat and Reform Party"
         }, 
-        "model": "django_parltrack_meps.group", 
+        "model": "parltrack_meps.group", 
         "pk": 135
     }, 
     {
@@ -340,7 +340,7 @@
             "abbreviation": "IMCO", 
             "name": "Committee on the Internal Market and Consumer Protection"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 235
     }, 
     {
@@ -348,7 +348,7 @@
             "abbreviation": "AFET", 
             "name": "Committee on Foreign Affairs"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 236
     }, 
     {
@@ -356,7 +356,7 @@
             "abbreviation": "ITRE", 
             "name": "Committee on Industry, Research and Energy"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 237
     }, 
     {
@@ -364,7 +364,7 @@
             "abbreviation": "EMPL", 
             "name": "Committee on Employment and Social Affairs"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 239
     }, 
     {
@@ -372,7 +372,7 @@
             "abbreviation": "TRAN", 
             "name": "Committee on Transport and Tourism"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 240
     }, 
     {
@@ -380,7 +380,7 @@
             "abbreviation": "LIBE", 
             "name": "Committee on Civil Liberties, Justice and Home Affairs"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 241
     }, 
     {
@@ -388,7 +388,7 @@
             "abbreviation": "PETI", 
             "name": "Committee on Petitions"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 242
     }, 
     {
@@ -396,7 +396,7 @@
             "abbreviation": "AFCO", 
             "name": "Committee on Constitutional Affairs"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 243
     }, 
     {
@@ -404,7 +404,7 @@
             "abbreviation": "BUDG", 
             "name": "Committee on Budgets"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 245
     }, 
     {
@@ -412,7 +412,7 @@
             "abbreviation": "DEVE", 
             "name": "Committee on Development"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 246
     }, 
     {
@@ -420,7 +420,7 @@
             "abbreviation": "PECH", 
             "name": "Committee on Fisheries"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 247
     }, 
     {
@@ -428,7 +428,7 @@
             "abbreviation": "REGI", 
             "name": "Committee on Regional Development"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 248
     }, 
     {
@@ -436,7 +436,7 @@
             "abbreviation": "JURI", 
             "name": "Committee on Legal Affairs"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 249
     }, 
     {
@@ -444,7 +444,7 @@
             "abbreviation": "AGRI", 
             "name": "Committee on Agriculture and Rural Development"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 250
     }, 
     {
@@ -452,7 +452,7 @@
             "abbreviation": "INTA", 
             "name": "Committee on International Trade"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 251
     }, 
     {
@@ -460,7 +460,7 @@
             "abbreviation": "CONT", 
             "name": "Committee on Budgetary Control"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 252
     }, 
     {
@@ -468,7 +468,7 @@
             "abbreviation": "ECON", 
             "name": "Committee on Economic and Monetary Affairs"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 253
     }, 
     {
@@ -476,7 +476,7 @@
             "abbreviation": "CULT", 
             "name": "Committee on Culture and Education"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 254
     }, 
     {
@@ -484,7 +484,7 @@
             "abbreviation": "FEMM", 
             "name": "Committee on Women's Rights and Gender Equality"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 256
     }, 
     {
@@ -492,7 +492,7 @@
             "abbreviation": "ENVI", 
             "name": "Committee on the Environment, Public Health and Food Safety"
         }, 
-        "model": "django_parltrack_meps.committee", 
+        "model": "parltrack_meps.committee", 
         "pk": 257
     }, 
     {
@@ -501,7 +501,7 @@
             "postcode": "1047", 
             "street": "60, rue Wiertz"
         }, 
-        "model": "django_parltrack_meps.building", 
+        "model": "parltrack_meps.building", 
         "pk": "-"
     }, 
     {
@@ -510,7 +510,7 @@
             "postcode": "1047", 
             "street": "60, rue Wiertz"
         }, 
-        "model": "django_parltrack_meps.building", 
+        "model": "parltrack_meps.building", 
         "pk": "ASP"
     }, 
     {
@@ -519,7 +519,7 @@
             "postcode": "1047", 
             "street": "60, rue Wiertz"
         }, 
-        "model": "django_parltrack_meps.building", 
+        "model": "parltrack_meps.building", 
         "pk": "ATR"
     }, 
     {
@@ -528,7 +528,7 @@
             "postcode": "1047", 
             "street": "60, rue Wiertz"
         }, 
-        "model": "django_parltrack_meps.building", 
+        "model": "parltrack_meps.building", 
         "pk": "PHS"
     }, 
     {
@@ -537,7 +537,7 @@
             "postcode": "1047", 
             "street": "60, rue Wiertz"
         }, 
-        "model": "django_parltrack_meps.building", 
+        "model": "parltrack_meps.building", 
         "pk": "WIB"
     }, 
     {
@@ -546,7 +546,7 @@
             "postcode": "67070", 
             "street": "1, avenue du Pr\u00e9sident Robert Schuman - CS 91024"
         }, 
-        "model": "django_parltrack_meps.building", 
+        "model": "parltrack_meps.building", 
         "pk": "LOW"
     }, 
     {
@@ -555,63 +555,63 @@
             "postcode": "67070", 
             "street": "1, avenue du Pr\u00e9sident Robert Schuman - CS 91024"
         }, 
-        "model": "django_parltrack_meps.building", 
+        "model": "parltrack_meps.building", 
         "pk": "WIC"
     }, 
     {
         "fields": {
             "name": "Parliament's Bureau"
         }, 
-        "model": "django_parltrack_meps.organization", 
+        "model": "parltrack_meps.organization", 
         "pk": 1
     }, 
     {
         "fields": {
             "name": "European Parliament"
         }, 
-        "model": "django_parltrack_meps.organization", 
+        "model": "parltrack_meps.organization", 
         "pk": 2
     }, 
     {
         "fields": {
             "name": "Conference of Presidents"
         }, 
-        "model": "django_parltrack_meps.organization", 
+        "model": "parltrack_meps.organization", 
         "pk": 3
     }, 
     {
         "fields": {
             "name": "Conference of Delegation Chairs"
         }, 
-        "model": "django_parltrack_meps.organization", 
+        "model": "parltrack_meps.organization", 
         "pk": 4
     }, 
     {
         "fields": {
             "name": "Quaestors"
         }, 
-        "model": "django_parltrack_meps.organization", 
+        "model": "parltrack_meps.organization", 
         "pk": 5
     }, 
     {
         "fields": {
             "name": "Conference of Committee Chairs"
         }, 
-        "model": "django_parltrack_meps.organization", 
+        "model": "parltrack_meps.organization", 
         "pk": 6
     }, 
     {
         "fields": {
             "name": "Conference of Delegation Chairmen"
         }, 
-        "model": "django_parltrack_meps.organization", 
+        "model": "parltrack_meps.organization", 
         "pk": 7
     }, 
     {
         "fields": {
             "name": "Conference of Committee Chairmen"
         }, 
-        "model": "django_parltrack_meps.organization", 
+        "model": "parltrack_meps.organization", 
         "pk": 8
     }
 ]
