@@ -37,7 +37,7 @@ class TimePeriodQueryset(models.query.QuerySet):
         return self.filter(end__lt=CURRENT_MAGIC_VAL)
 
     def at_date(self, _date):
-        return self.filter(begin__lt=_date, end__gt=_date)[0]
+        return self.filter(begin__lt=_date, end__gt=_date)
 
 
 class TimePeriodManager(models.Manager):
