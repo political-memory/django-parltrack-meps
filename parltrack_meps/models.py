@@ -23,6 +23,69 @@ from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 
 
+CURRENT_MAGIC_VAL = date(9999, 12, 31)
+
+
+class TimePeriodQueryset(models.query.QuerySet):
+    def newer_first(self):
+        return self.order_by('-end', '-begin')
+
+    def only_current(self):
+        return self.filter(end=CURRENT_MAGIC_VAL)
+
+    def only_old(self):
+        return self.filter(end__lt=CURRENT_MAGIC_VAL)
+
+    def at_date(self, _date):
+        return self.filter(begin__lt=_date, end__gt=_date)[0]
+
+
+class TimePeriodManager(models.Manager):
+    use_for_related_fields = True
+
+    def newer_first(self):
+        return self.get_query_set().newer_first()
+
+    def only_current(self):
+        return self.get_query_set().only_current()
+
+    def only_old(self):
+        return self.get_query_set().only_old()
+
+    def at_date(self, _date):
+        return self.get_query_set().at_date(_date)
+
+    def get_query_set(self):
+        return TimePeriodQueryset(self.model)
+
+
+class TimePeriod(models.Model):
+    """
+    Helper base class used on M2M intermediary models representing a
+    relationship between a Representative and a Role (Group/Delegation/etc.)
+    during a certain period in time.
+    """
+    class Meta:
+        abstract = True
+
+    objects = TimePeriodManager()
+
+    begin = models.DateField(null=True)
+    end = models.DateField(null=True)
+
+    def is_current(self):
+        if self.end == CURRENT_MAGIC_VAL:
+            return True
+        else:
+            return False
+
+    def is_past(self):
+        if self.end < date.today():
+            return True
+        else:
+            return False
+
+
 class Country(models.Model):
     code = models.CharField(max_length=2, unique=True)
     name = models.CharField(max_length=30, unique=True)
@@ -248,23 +311,19 @@ class NameVariation(models.Model):
     mep = models.ForeignKey(MEP)
 
 
-class GroupMEP(models.Model):
+class GroupMEP(TimePeriod):
     mep = models.ForeignKey(MEP)
     group = models.ForeignKey(Group)
     role = models.CharField(max_length=255)
-    begin = models.DateField(null=True)
-    end = models.DateField(null=True)
 
     def instance(self):
         return self.group
 
 
-class DelegationRole(models.Model):
+class DelegationRole(TimePeriod):
     mep = models.ForeignKey(MEP)
     delegation = models.ForeignKey(Delegation)
     role = models.CharField(max_length=255)
-    begin = models.DateField(null=True)
-    end = models.DateField(null=True)
 
     def instance(self):
         return self.delegation
@@ -273,12 +332,10 @@ class DelegationRole(models.Model):
         return u"%s : %s" % (self.mep.full_name, self.delegation)
 
 
-class CommitteeRole(models.Model):
+class CommitteeRole(TimePeriod):
     mep = models.ForeignKey(MEP)
     committee = models.ForeignKey(Committee)
     role = models.CharField(max_length=255)
-    begin = models.DateField(null=True)
-    end = models.DateField(null=True)
 
     def instance(self):
         return self.committee
@@ -308,20 +365,16 @@ class Party(models.Model):
         return MEP.objects.filter(partyrepresentative__party=self, active=True).distinct()
 
 
-class CountryMEP(models.Model):
+class CountryMEP(TimePeriod):
     mep = models.ForeignKey(MEP)
     country = models.ForeignKey(Country)
     party = models.ForeignKey(Party)
-    begin = models.DateField(null=True)
-    end = models.DateField(null=True)
 
 
-class OrganizationMEP(models.Model):
+class OrganizationMEP(TimePeriod):
     mep = models.ForeignKey(MEP)
     organization = models.ForeignKey(Organization)
     role = models.CharField(max_length=255)
-    begin = models.DateField(null=True)
-    end = models.DateField(null=True)
 
 
 class Assistant(models.Model):
