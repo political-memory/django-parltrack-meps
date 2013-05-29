@@ -303,7 +303,7 @@ class MEP(models.Model):
         return all_roles
 
     def __unicode__(self):
-        return "%s %s" % (self.first_name, self.last_name)
+        return u"%s %s" % (self.first_name, self.last_name)
 
     class Meta:
         ordering = ['last_name']
