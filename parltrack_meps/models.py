@@ -322,6 +322,9 @@ class GroupMEP(TimePeriod):
     def instance(self):
         return self.group
 
+    def __unicode__(self):
+        return u"%s %s [%s]" % (self.mep.first_name, self.mep.last_name, self.group.abbreviation)
+
 
 class DelegationRole(TimePeriod):
     mep = models.ForeignKey(MEP)
@@ -372,6 +375,9 @@ class CountryMEP(TimePeriod):
     mep = models.ForeignKey(MEP)
     country = models.ForeignKey(Country)
     party = models.ForeignKey(Party)
+
+    def __unicode__(self):
+        return u"%s %s - %s" % (self.mep.first_name, self.mep.last_name, self.country.code)
 
 
 class OrganizationMEP(TimePeriod):
