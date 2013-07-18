@@ -217,6 +217,14 @@
     }, 
     {
         "fields": {
+            "code": "HR", 
+            "name": "Croatia"
+        }, 
+        "model": "parltrack_meps.country", 
+        "pk": 100
+    }, 
+    {
+        "fields": {
             "abbreviation": "ECR", 
             "name": "European Conservatives and Reformists"
         }, 
