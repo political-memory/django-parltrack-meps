@@ -106,10 +106,10 @@ def add_committees(mep, committees):
             if committee.get("end"):
                 params['end'] = _parse_date(committee.get("end"))
             CommitteeRole.objects.create(mep=mep, committee=in_db_committe,
-                                         role=committee["role"], **params)
-                                         #begin=_parse_date(committee.get("start")),
-                                         #end=_parse_date(committee.get("end")))
-        else:
+                                         role=committee["role"],
+                                         begin=_parse_date(committee.get("start")),
+                                         end=_parse_date(committee.get("end")))
+        #else:
             # FIXME create or how abbreviations ? Or are they really important ? or create a new class ?
             # print "WARNING: committe without abbreviation:", committee["Organization"]
 
@@ -125,9 +125,9 @@ def add_delegations(mep, delegations):
         if delegation.get("end"):
             params['end'] = _parse_date(delegation["end"])
         DelegationRole.objects.create(mep=mep, delegation=db_delegation,
-                                      role=delegation["role"], **params)
-                                      #begin=_parse_date(delegation["start"]),
-                                      #end=_parse_date(delegation["end"]))
+                                      role=delegation["role"],
+                                      begin=_parse_date(delegation["start"]),
+                                      end=_parse_date(delegation["end"]))
 
 
 def add_addrs(mep, addrs):
@@ -205,9 +205,9 @@ def add_organizations(mep, organizations):
             params['end'] = _parse_date(organization["end"])
         OrganizationMEP.objects.create(mep=mep,
                                        organization=in_db_organization,
-                                       role=organization["role"], **params)
-                                       #begin=_parse_date(organization["start"]),
-                                       #end=_parse_date(organization["end"]))
+                                       role=organization["role"],
+                                       begin=_parse_date(organization["start"]),
+                                       end=_parse_date(organization["end"]))
 
 
 def change_mep_details(mep, mep_json):
@@ -270,9 +270,9 @@ def add_groups(mep, groups):
             params['begin'] = _parse_date(group["start"])
         if group.get("end"):
             params['end'] = _parse_date(group["end"])
-        GroupMEP.objects.create(mep=mep, group=in_db_group, role=group["role"])
-                                #begin=_parse_date(group["start"]),
-                                #end=_parse_date(group["end"]))
+        GroupMEP.objects.create(mep=mep, group=in_db_group, role=group["role"],
+                                begin=_parse_date(group["start"]),
+                                end=_parse_date(group["end"]))
 
 
 def add_assistants(mep, assistants):
