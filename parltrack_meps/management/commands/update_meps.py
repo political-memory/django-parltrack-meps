@@ -50,7 +50,7 @@ def get_or_create(klass, _id=None, **kwargs):
     if object:
         return object[0]
     else:
-        print "     add new", klass.__name__, kwargs
+        # print "     add new", klass.__name__, kwargs
         return klass.objects.create(**kwargs)
 
 
@@ -96,10 +96,10 @@ def add_committees(mep, committees):
             try:
                     in_db_committe = Committee.objects.get(abbreviation=committee["committee_id"])
             except Committee.DoesNotExist:
-                print "     create new commitee:", committee["committee_id"], committee["Organization"]
+                # print "     create new commitee:", committee["committee_id"], committee["Organization"]
                 in_db_committe = Committee.objects.create(name=committee["Organization"],
                                                           abbreviation=committee["committee_id"])
-            print "     link mep to commmitte:", committee["Organization"]
+            # print "     link mep to commmitte:", committee["Organization"]
             params = {}
             if committee.get("start"):
                 params['begin'] = _parse_date(committee.get("start"))
@@ -111,14 +111,14 @@ def add_committees(mep, committees):
                                          #end=_parse_date(committee.get("end")))
         else:
             # FIXME create or how abbreviations ? Or are they really important ? or create a new class ?
-            print "WARNING: committe without abbreviation:", committee["Organization"]
+            # print "WARNING: committe without abbreviation:", committee["Organization"]
 
 
 def add_delegations(mep, delegations):
     DelegationRole.objects.filter(mep=mep).delete()
     for delegation in delegations:
         db_delegation = get_or_create(Delegation, name=delegation["Organization"])
-        print "     create DelegationRole to link mep to delegation"
+        # print "     create DelegationRole to link mep to delegation"
         params = {}
         if delegation.get("start"):
             params['begin'] = _parse_date(delegation["start"])
@@ -132,7 +132,7 @@ def add_delegations(mep, delegations):
 
 def add_addrs(mep, addrs):
     if addrs.get("Brussels"):
-        print "     add Brussels infos"
+        # print "     add Brussels infos"
         bxl = addrs["Brussels"]
         if bxl["Address"].get("building_code"):
             mep.bxl_building = get_or_create(Building, _id="id",
@@ -145,7 +145,7 @@ def add_addrs(mep, addrs):
         mep.bxl_fax = bxl["Fax"]
         mep.bxl_phone1 = bxl["Phone"]
         mep.bxl_phone2 = bxl["Phone"][:-4] + "7" + bxl["Phone"][-3:]
-    print "     add Strasbourg infos"
+    # print "     add Strasbourg infos"
     if addrs.get("Strasbourg"):
         stg = addrs["Strasbourg"]
         if stg["Address"].get("building_code"):
@@ -159,21 +159,21 @@ def add_addrs(mep, addrs):
         mep.stg_fax = stg["Fax"]
         mep.stg_phone1 = stg["Phone"]
         mep.stg_phone2 = stg["Phone"][:-4] + "7" + stg["Phone"][-3:]
-        print "     adding mep's postal addresses:"
+        # print "     adding mep's postal addresses:"
     mep.save()
     PostalAddress.objects.filter(mep=mep).delete()
     for addr in addrs.get("Postal", []):
-        print "       *", addr.encode("Utf-8")
+        # print "       *", addr.encode("Utf-8")
         PostalAddress.objects.create(addr=addr, mep=mep)
 
 
 def add_countries(mep, countries):
     PartyMEP.objects.filter(mep=mep).delete()
     CountryMEP.objects.filter(mep=mep).delete()
-    print "     add countries"
+    # print "     add countries"
     for country in countries:
-        print country
-        print "     link mep to country", '"%s"' % country["country"], "for a madate"
+        # print country
+        # print "     link mep to country", '"%s"' % country["country"], "for a madate"
         _country = Country.objects.get(name=country["country"])
         if "party" in country:
             party = get_or_create(Party, name=country["party"], country=_country)
@@ -188,16 +188,16 @@ def add_countries(mep, countries):
             params['begin'] = _parse_date(country["start"])
         if country.get("end"):
             params['end'] = _parse_date(country["end"])
-        CountryMEP.objects.create(mep=mep, country=_country, party=party, **params)
-                                  #begin=_parse_date(country["start"]),
-                                  #end=_parse_date(country["end"]))
+        CountryMEP.objects.create(mep=mep, country=_country, party=party,
+                                  begin=_parse_date(country["start"]),
+                                  end=_parse_date(country["end"]))
 
 
 def add_organizations(mep, organizations):
     OrganizationMEP.objects.filter(mep=mep).delete()
     for organization in organizations:
         in_db_organization = get_or_create(Organization, name=organization["Organization"])
-        print "     link mep to organization:", in_db_organization.name
+        # print "     link mep to organization:", in_db_organization.name
         params = {}
         if organization.get("start"):
             params['begin'] = _parse_date(organization["start"])
@@ -212,17 +212,17 @@ def add_organizations(mep, organizations):
 
 def change_mep_details(mep, mep_json):
     if mep_json.get("Birth"):
-        print "     update mep birth date"
+        # print "     update mep birth date"
         mep.birth_date = _parse_date(mep_json["Birth"]["date"])
-        print "     update mep birth place"
+        # print "     update mep birth place"
         mep.birth_place = mep_json["Birth"]["place"]
-    print "     update mep first name"
+    # print "     update mep first name"
     mep.first_name = mep_json["Name"]["sur"]
-    print "     update mep last name"
+    # print "     update mep last name"
     mep.last_name = mep_json["Name"]["family"]
-    print "     update mep full name"
+    # print "     update mep full name"
     mep.full_name = "%s %s" % (mep_json["Name"]["sur"], mep_json["Name"]["family"])
-    print "     update mep gender"
+    # print "     update mep gender"
     if mep_json["Gender"] == u'n/a':
         mep.gender = None
     else:
@@ -255,7 +255,7 @@ def add_groups(mep, groups):
     for group in groups:
         if not group.get("groupid"):
             continue
-        print "     link mep to group", group["groupid"], group["Organization"]
+        # print "     link mep to group", group["groupid"], group["Organization"]
         if type(group["groupid"]) is list:
             # I really don't like that hack
             group["groupid"] = group["groupid"][0]
@@ -276,12 +276,12 @@ def add_groups(mep, groups):
 
 
 def add_assistants(mep, assistants):
-    print "Assistants for " + mep.full_name.encode("Utf-8")
+    # print "Assistants for " + mep.full_name.encode("Utf-8")
     for assist_type in assistants:
-        print "TYPE : " + assist_type.encode("Utf-8")
+        # print "TYPE : " + assist_type.encode("Utf-8")
         type_name = assist_type
         for assistant in assistants[type_name]:
-            print assistant.encode("Utf-8")
+            # print assistant.encode("Utf-8")
             assistant = get_or_create(Assistant, full_name=assistant)
             get_or_create(AssistantMEP, mep=mep, assistant=assistant, type=type_name)
 
@@ -303,7 +303,7 @@ def manage_mep(mep, mep_json):
     if mep_json.get("Homepage"):
         add_mep_website(mep, mep_json["Homepage"] + mep_json.get("Twitter", []) + mep_json.get("Facebook", []))
     add_mep_cv(mep, mep_json.get("CV", []))
-    print "     save mep modifications"
+    # print "     save mep modifications"
     mep.save()
 
 
@@ -333,7 +333,7 @@ def create_mep(mep_json):
     if mep_json.get("Homepage"):
         add_mep_website(mep, mep_json["Homepage"] + mep_json.get("Twitter", []) + mep_json.get("Facebook", []))
     add_mep_cv(mep, mep_json.get("CV", []))
-    print "     save mep modifications"
+    # print "     save mep modifications"
     mep.save()
 
 
