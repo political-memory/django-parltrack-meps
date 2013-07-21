@@ -210,6 +210,7 @@ class MEP(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     full_name = models.CharField(max_length=255, null=True)
+    swaped_name = models.CharField(max_length=255, null=True)
     gender = models.CharField(max_length=2, choices=((u'M', u'Male'), (u'F', u'Female')), null=True)
     birth_date = models.DateField(null=True)
     birth_place = models.CharField(max_length=255)
