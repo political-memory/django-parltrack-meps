@@ -224,6 +224,42 @@ def change_mep_details(mep, mep_json):
     # print "     update mep full name"
     mep.full_name = "%s %s" % (mep_json["Name"]["sur"], mep_json["Name"]["family"])
 
+    fix_last_name_with_prefix = {
+        "Esther de LANGE": "de LANGE",
+        "Patricia van der KAMMEN": "van der KAMMEN",
+        "Judith A. MERKIES": "MERKIES",
+        "Heinz K. BECKER": "BECKER",
+        "Cornelis de JONG": "de JONG",
+        "Peter van DALEN": "van DALEN",
+        "Sophia in 't VELD": "in 't VELD",
+        "Marielle de SARNEZ": "de SARNEZ",
+        "Anne E. JENSEN": "JENSEN",
+        "Wim van de CAMP": "van de CAMP",
+        "Lambert van NISTELROOIJ": "van NISTELROOIJ",
+        "Johannes Cornelis van BAALEN": "van BAALEN",
+        "Ioannis A. TSOUKALAS": "TSOUKALAS",
+        "Pilar del CASTILLO VERA": "del CASTILLO VERA",
+        "Luis de GRANDES PASCUAL": "de GRANDES PASCUAL",
+        "Philippe de VILLIERS": "de VILLIERS",
+        "Daniël van der STOEP": "van der STOEP",
+        "William (The Earl of) DARTMOUTH": "(The Earl of) Dartmouth",
+        "Bairbre de BRÚN": u'de Br\xfan',
+        "Karl von WOGAU": u'von WOGAU',
+        "Ieke van den BURG": u'van den BURG',
+        "Manuel António dos SANTOS": u'dos SANTOS',
+        "Paul van BUITENEN": u'van BUITENEN',
+        "Elly de GROEN-KOUWENHOVEN": u'de GROEN-KOUWENHOVEN',
+        "Margrietus van den BERG": u'van den BERG',
+        "Alexander Graf LAMBSDORFF": u'Graf LAMBSDORFF',
+    }
+
+    if fix_last_name_with_prefix.get(mep.full_name):
+        mep.last_name_with_prefix = fix_last_name_with_prefix[mep.full_name]
+    elif mep.last_name == "J.A.J. STASSEN":
+        mep.last_name_with_prefix = "STASSEN"
+    else:
+        mep.last_name_with_prefix = mep.last_name
+
     mep.swaped_name = "%s %s" % (mep.last_name, mep.first_name)
 
     # print "     update mep gender"
