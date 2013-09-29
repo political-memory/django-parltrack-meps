@@ -251,7 +251,10 @@ def change_mep_details(mep, mep_json):
         "Paul van BUITENEN": u'van BUITENEN',
         "Elly de GROEN-KOUWENHOVEN": u'de GROEN-KOUWENHOVEN',
         "Margrietus van den BERG": u'van den BERG',
+        u'Dani\xebl van der STOEP': u'van der STOEP',
         "Alexander Graf LAMBSDORFF": u'Graf LAMBSDORFF',
+        u'Bairbre de BR\xdaN': u'de BR\xdaN',
+        'Luigi de MAGISTRIS': 'de MAGISTRIS',
     }
 
     if fix_last_name_with_prefix.get(mep.full_name):
