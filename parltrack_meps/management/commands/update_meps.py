@@ -173,25 +173,26 @@ def add_countries(mep, countries):
     CountryMEP.objects.filter(mep=mep).delete()
     # print "     add countries"
     for country in countries:
-        # print country
-        # print "     link mep to country", '"%s"' % country["country"], "for a madate"
-        _country = Country.objects.get(name=country["country"])
-        if "party" in country:
-            party = get_or_create(Party, name=country["party"], country=_country)
-            if not PartyMEP.objects.filter(mep=mep, party=party):
-                #current = True if _parse_date(country["end"]).year > date.today().year else False
-                current = 'end' not in country
-                PartyMEP.objects.create(mep=mep, party=party, current=current)
-        else:
-            party = get_or_create(Party, name="unknown", country=_country)
-        params = {}
-        if country.get("start"):
-            params['begin'] = _parse_date(country["start"])
-        if country.get("end"):
-            params['end'] = _parse_date(country["end"])
-        CountryMEP.objects.create(mep=mep, country=_country, party=party,
-                                  begin=_parse_date(country["start"]),
-                                  end=_parse_date(country["end"]))
+        if country:
+            # print country
+            # print "     link mep to country", '"%s"' % country["country"], "for a madate"
+            _country = Country.objects.get(name=country["country"])
+            if "party" in country:
+                party = get_or_create(Party, name=country["party"], country=_country)
+                if not PartyMEP.objects.filter(mep=mep, party=party):
+                    #current = True if _parse_date(country["end"]).year > date.today().year else False
+                    current = 'end' not in country
+                    PartyMEP.objects.create(mep=mep, party=party, current=current)
+            else:
+                party = get_or_create(Party, name="unknown", country=_country)
+            params = {}
+            if country.get("start"):
+                params['begin'] = _parse_date(country["start"])
+            if country.get("end"):
+                params['end'] = _parse_date(country["end"])
+            CountryMEP.objects.create(mep=mep, country=_country, party=party,
+                                      begin=_parse_date(country["start"]),
+                                      end=_parse_date(country["end"]))
 
 
 def add_organizations(mep, organizations):
