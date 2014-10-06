@@ -173,6 +173,8 @@ def add_countries(mep, countries):
     CountryMEP.objects.filter(mep=mep).delete()
     # print "     add countries"
     for country in countries:
+        if not country:
+            continue
         # print country
         # print "     link mep to country", '"%s"' % country["country"], "for a madate"
         _country = Country.objects.get(name=country["country"])
@@ -267,7 +269,7 @@ def change_mep_details(mep, mep_json):
     mep.swaped_name = "%s %s" % (mep.last_name, mep.first_name)
 
     # print "     update mep gender"
-    if mep_json["Gender"] == u'n/a':
+    if mep_json.get("Gender", u'n/a') == u'n/a':
         mep.gender = None
     else:
         mep.gender = mep_json["Gender"]
@@ -335,7 +337,7 @@ def manage_mep(mep, mep_json):
     mep.committeerole_set.all().delete()
     add_committees(mep, mep_json.get("Committees", []))
     add_delegations(mep, mep_json.get("Delegations", []))
-    add_countries(mep, mep_json["Constituencies"])
+    add_countries(mep, mep_json.get("Constituencies"), [])
     add_groups(mep, mep_json.get("Groups", []))
     add_assistants(mep, mep_json.get("assistants", []))
     if mep_json.get("Addresses"):
@@ -367,7 +369,7 @@ def create_mep(mep_json):
         get_or_create(NameVariation, mep=mep, name=alias)
     add_committees(mep, mep_json.get("Committees", []))
     add_delegations(mep, mep_json.get("Delegations", []))
-    add_countries(mep, mep_json["Constituencies"])
+    add_countries(mep, mep_json.get("Constituencies"), [])
     add_groups(mep, mep_json.get("Groups", []))
     add_assistants(mep, mep_json.get("assistant", []))
     add_organizations(mep, mep_json.get("Staff", []))
