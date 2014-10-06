@@ -44,18 +44,18 @@ class TimePeriodManager(models.Manager):
     use_for_related_fields = True
 
     def newer_first(self):
-        return self.get_query_set().newer_first()
+        return self.get_queryset().newer_first()
 
     def only_current(self):
-        return self.get_query_set().only_current()
+        return self.get_queryset().only_current()
 
     def only_old(self):
-        return self.get_query_set().only_old()
+        return self.get_queryset().only_old()
 
     def at_date(self, _date):
-        return self.get_query_set().at_date(_date)
+        return self.get_queryset().at_date(_date)
 
-    def get_query_set(self):
+    def get_queryset(self):
         return TimePeriodQueryset(self.model)
 
 
