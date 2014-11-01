@@ -18,9 +18,9 @@
 
 from django.contrib import admin
 
-from memopol.reps.models import Party
+#from memopol.reps.models import Party
 from .models import CountryMEP, GroupMEP, DelegationRole
-from .models import Committee, Delegation, Country, Group, MEP, CommitteeRole
+from .models import Committee, Delegation, Country, Group, Party, MEP, CommitteeRole
 
 admin.site.register(Committee)
 admin.site.register(CommitteeRole)

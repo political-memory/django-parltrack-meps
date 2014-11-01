@@ -217,6 +217,8 @@ class MEP(models.Model):
     birth_place = models.CharField(max_length=255)
     active = models.BooleanField(default=False)
     ep_id = models.IntegerField(unique=True)
+    twitter = models.CharField(max_length=140, null=True)
+    facebook = models.CharField(max_length=512, null=True)
     ep_opinions = models.URLField()
     ep_debates = models.URLField()
     ep_questions = models.URLField()

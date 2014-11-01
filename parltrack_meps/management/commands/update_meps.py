@@ -41,7 +41,6 @@ JSON_DUMP_ARCHIVE_LOCALIZATION = join("/tmp", "ep_meps_current.json.xz")
 JSON_DUMP_LOCALIZATION = join("/tmp", "ep_meps_current.json")
 _parse_date = lambda date: datetime.strptime(date, "%Y-%m-%dT00:%H:00")
 
-
 def get_or_create(klass, _id=None, **kwargs):
     if _id is None:
         object = klass.objects.filter(**kwargs)
@@ -52,7 +51,6 @@ def get_or_create(klass, _id=None, **kwargs):
     else:
         # print "     add new", klass.__name__, kwargs
         return klass.objects.create(**kwargs)
-
 
 class Command(BaseCommand):
     help = 'Update the eurodeputies data by pulling it from parltrack'
@@ -143,8 +141,9 @@ def add_addrs(mep, addrs):
         mep.bxl_floor = bxl["Address"]["Office"][:2]
         mep.bxl_office_number = bxl["Address"]["Office"][2:]
         mep.bxl_fax = bxl.get("Fax")
-        mep.bxl_phone1 = bxl["Phone"]
-        mep.bxl_phone2 = bxl["Phone"][:-4] + "7" + bxl["Phone"][-3:]
+        mep.bxl_phone1 = bxl.get("Phone")
+        if mep.bxl_phone1:
+            mep.bxl_phone2 = bxl["Phone"][:-4] + "7" + bxl["Phone"][-3:]
     # print "     add Strasbourg infos"
     if addrs.get("Strasbourg"):
         stg = addrs["Strasbourg"]
@@ -220,6 +219,8 @@ def change_mep_details(mep, mep_json):
         # print "     update mep birth place"
         if "place" in mep_json["Birth"]:
             mep.birth_place = mep_json["Birth"]["place"]
+    mep.twitter = mep_json.get("Twitter", [None])[0]
+    mep.facebook = mep_json.get("Facebook", [None])[0]
     # print "     update mep first name"
     mep.first_name = mep_json["Name"]["sur"]
     # print "     update mep last name"
@@ -331,7 +332,6 @@ def add_assistants(mep, assistants):
             assistant = get_or_create(Assistant, full_name=assistant)
             get_or_create(AssistantMEP, mep=mep, assistant=assistant, type=type_name)
 
-
 def manage_mep(mep, mep_json):
     change_mep_details(mep, mep_json)
     mep.committeerole_set.all().delete()
@@ -359,7 +359,7 @@ def add_missing_details(mep, mep_json):
 
 def create_mep(mep_json):
     mep = MEP()
-    mep.active = True
+    mep.active = mep_json["active"]
     change_mep_details(mep, mep_json)
     add_missing_details(mep, mep_json)
     if mep_json.get("Addresses"):
@@ -371,7 +371,7 @@ def create_mep(mep_json):
     add_delegations(mep, mep_json.get("Delegations", []))
     add_countries(mep, mep_json.get("Constituencies", []))
     add_groups(mep, mep_json.get("Groups", []))
-    add_assistants(mep, mep_json.get("assistant", []))
+    add_assistants(mep, mep_json.get("assistants", []))
     add_organizations(mep, mep_json.get("Staff", []))
     if mep_json.get("Mail"):
         add_mep_email(mep, mep_json["Mail"])
