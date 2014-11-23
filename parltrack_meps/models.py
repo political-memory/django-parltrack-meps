@@ -1,4 +1,5 @@
 # This file is part of django-parltrack-meps.
+# -*- coding: utf-8 -*-
 #
 # django-parltrack-meps is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -432,3 +433,110 @@ class PartyMEP(models.Model):
     party = models.ForeignKey(Party)
     role = models.CharField(max_length=255, null=True)
     current = models.BooleanField(default=False)
+
+class Motion(models.Model):
+    meps = models.ManyToManyField(MEP)
+    title = models.TextField()
+    url = models.URLField(null=True)
+    date = models.DateField()
+    term = models.IntegerField()
+
+    def __unicode__(self):
+        return self.mep, self.title
+
+LANGUAGES = [
+    ("bg", u"български"),
+    ("es", u"español"),
+    ("cs", u"čeština"),
+    ("da", u"dansk"),
+    ("de", u"Deutsch"),
+    ("et", u"eesti keel"),
+    ("el", u"ελληνικά"),
+    ("en", u"English"),
+    ("fr", u"français"),
+    ("ga", u"Gaeilge"),
+    ("hr", u"hrvatski"),
+    ("it", u"italiano"),
+    ("lv", u"latviešu valoda"),
+    ("lt", u"lietuvių kalba"),
+    ("hu", u"magyar"),
+    ("mt", u"Malti"),
+    ("nl", u"Nederlands"),
+    ("pl", u"polski"),
+    ("pt", u"português"),
+    ("ro", u"română"),
+    ("sk", u"slovenčina"),
+    ("sl", u"slovenščina "),
+    ("fi", u"suomi"),
+    ("sv", u"svenska")]
+
+class Question(models.Model):
+    mep = models.ForeignKey(MEP)
+    title = models.TextField()
+    text = models.TextField(null=True)
+    url = models.URLField(null=True)
+    date = models.DateField()
+    term = models.IntegerField()
+    lang = models.CharField(max_length=2, choices=LANGUAGES, default='en')
+
+    def __unicode__(self):
+        return self.mep, self.title
+
+class Speech(models.Model):
+    mep = models.ForeignKey(MEP)
+    title = models.TextField()
+    text = models.TextField(null=True)
+    url = models.URLField(null=True)
+    date = models.DateField()
+    term = models.IntegerField()
+    lang = models.CharField(max_length=2, choices=LANGUAGES, default='en')
+
+    def __unicode__(self):
+        return self.mep, self.title
+
+class Subject(models.Model):
+    code = models.CharField(max_length=32)
+    subject = models.CharField(max_length=256)
+
+    def __unicode__(self):
+        return "%s - %s" % (self.code, self.subject)
+
+class Dossier(models.Model):
+    reference = models.CharField(max_length=32)
+    subjects = models.ManyToManyField(Subject, related_name='topics')
+
+    def __unicode__(self):
+        return self.reference
+
+class Rapporteur(models.Model):
+    TYPES = (
+        (0, 'REPORT'),
+        (1, 'REPORT-SHADOW'),
+        (2, 'COMPARL'),
+        (3, 'COMPARL-SHADOW'),
+    )
+    TYPEMAP = { v: k for k, v in TYPES }
+    mep = models.ForeignKey(MEP)
+    dossier = models.ForeignKey(Dossier, null=True)
+    title = models.TextField()
+    type = models.SmallIntegerField(choices=TYPES, default=0)
+    url = models.URLField(null=True)
+    date = models.DateField()
+    term = models.IntegerField()
+
+    def __unicode__(self):
+        return u"%s - %s" % (self.mep, self.title)
+
+class Amendment(models.Model):
+    dossier = models.ForeignKey(Dossier)
+    meps = models.ManyToManyField(MEP)
+    committees = models.ManyToManyField(Committee)
+    old = models.TextField()
+    new = models.TextField()
+    url = models.URLField()
+    seq = models.SmallIntegerField()
+    date = models.DateField()
+    location = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.reference

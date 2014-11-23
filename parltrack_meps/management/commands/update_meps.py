@@ -24,6 +24,9 @@ from os.path import join
 from datetime import datetime
 import urllib
 
+from guess_language import guessLanguage
+from lxml import etree
+
 from django.core.management.base import BaseCommand
 from django.db.models import Count
 from django.db import transaction
@@ -34,11 +37,13 @@ from parltrack_meps.models import (Party, MEP, Delegation,
                                           OrganizationMEP, Committee,
                                           CommitteeRole, Group, GroupMEP,
                                           Building, Assistant, AssistantMEP,
-                                          PartyMEP, Email, WebSite, CV, NameVariation)
+                                          PartyMEP, Email, WebSite, CV, NameVariation,
+                                   LANGUAGES, Motion, Speech, Question, Dossier, Subject, Rapporteur)
 
 # XXX
 JSON_DUMP_ARCHIVE_LOCALIZATION = join("/tmp", "ep_meps_current.json.xz")
 JSON_DUMP_LOCALIZATION = join("/tmp", "ep_meps_current.json")
+CURRENT_TERM = 8
 _parse_date = lambda date: datetime.strptime(date, "%Y-%m-%dT00:%H:00")
 
 def get_or_create(klass, _id=None, **kwargs):
@@ -74,6 +79,7 @@ class Command(BaseCommand):
             MEP.objects.filter(active=True).update(active=False)
             a = 0
             for mep_json in meps:
+                if not mep_json.get("active"): continue
                 a += 1
                 print a, "-", mep_json["Name"]["full"].encode("Utf-8")
                 in_db_mep = MEP.objects.filter(ep_id=int(mep_json["UserID"]))
@@ -332,6 +338,73 @@ def add_assistants(mep, assistants):
             assistant = get_or_create(Assistant, full_name=assistant)
             get_or_create(AssistantMEP, mep=mep, assistant=assistant, type=type_name)
 
+# QP type urls must be converted from to:
+# http://www.europarl.europa.eu/sides/getDoc.do?pubRef=-//EP//NONSGML%2BWQ%2BE-2014-005841%2B0%2BDOC%2BWORD%2BV0//EN
+# http://www.europarl.europa.eu/sides/getDoc.do?pubRef=-//EP//TEXT+WQ+E-2014-005841+0+DOC+XML+V0//EN&language=en
+# activity_types=("CRE", "MOTION", "WDECL", "QP", "REPORT", "REPORT-SHADOW", "COMPARL", "COMPARL-SHADOW")
+# todo implement WDECL support
+def add_activities(mep, acts):
+    # print "Activities for " + mep.full_name.encode("Utf-8")
+    for typ in acts:
+        for term in acts[typ]:
+            for act in acts[typ][term]:
+                if typ in ['COMPARL', 'COMPARL-SHADOW', 'REPORT', 'REPORT-SHADOW']:
+                    doc = None
+                    if act.get('dossier'):
+                        doc = get_or_create(Dossier,
+                                            reference=act['dossier'][0])
+                        [doc.subjects.add(get_or_create(Subject,
+                                                        code=subj.split(' ',1)[0],
+                                                        subject=subj.split(' ',1)[1]))
+                        for subj in act['dossier'][1]]
+                    else:
+                        print "no dossier for", mep, act['title']
+                    get_or_create(Rapporteur,
+                                  mep=mep,
+                                  dossier=doc,
+                                  title=act['title'],
+                                  url=act['titleUrl'],
+                                  date=datetime.strptime(act['date'], "%d-%m-%Y"),
+                                  term=int(term),
+                                  type=Rapporteur.TYPEMAP[typ])
+                elif typ == 'QP':
+                    tmp = act.get('text')
+                    lang = ''
+                    if tmp:
+                        tmp = guessLanguage(' '.join(etree.fromstring("<div>%s</div>" % tmp).xpath('//text()')))
+                        if tmp in [x[0] for x in LANGUAGES]:
+                            lang = tmp
+                    get_or_create(Question,
+                                  mep=mep,
+                                  title=act['title'],
+                                  url=act['titleUrl'],
+                                  text=act.get('text'),
+                                  lang=lang,
+                                  date=datetime.strptime(act['date'], "%d-%m-%Y"),
+                                  term=int(term))
+                elif typ == 'CRE':
+                    tmp = act.get('text')
+                    lang = ''
+                    if tmp:
+                        tmp = guessLanguage(' '.join(etree.fromstring("<div>%s</div>" % tmp).xpath('//text()')))
+                        if tmp in [x[0] for x in LANGUAGES]:
+                            lang = tmp
+                    get_or_create(Speech,
+                                  mep=mep,
+                                  title=act['title'],
+                                  url=act['titleUrl'],
+                                  text=act.get('text'),
+                                  lang=lang,
+                                  date=datetime.strptime(act['date'], "%d-%m-%Y"),
+                                  term=int(term))
+                elif typ == 'MOTION':
+                    obj = get_or_create(Motion,
+                                  title=act['title'],
+                                  url=act['titleUrl'],
+                                  date=datetime.strptime(act['date'], "%d-%m-%Y"),
+                                  term=int(term))
+                    mep.motion_set.add(obj)
+
 def manage_mep(mep, mep_json):
     change_mep_details(mep, mep_json)
     mep.committeerole_set.all().delete()
@@ -340,6 +413,7 @@ def manage_mep(mep, mep_json):
     add_countries(mep, mep_json.get("Constituencies", []))
     add_groups(mep, mep_json.get("Groups", []))
     add_assistants(mep, mep_json.get("assistants", []))
+    add_activities(mep, mep_json.get("activities", []))
     if mep_json.get("Addresses"):
         add_addrs(mep, mep_json["Addresses"])
     add_organizations(mep, mep_json.get("Staff", []))
@@ -372,6 +446,7 @@ def create_mep(mep_json):
     add_countries(mep, mep_json.get("Constituencies", []))
     add_groups(mep, mep_json.get("Groups", []))
     add_assistants(mep, mep_json.get("assistants", []))
+    add_activities(mep, mep_json.get("activities", []))
     add_organizations(mep, mep_json.get("Staff", []))
     if mep_json.get("Mail"):
         add_mep_email(mep, mep_json["Mail"])
