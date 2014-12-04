@@ -19,7 +19,7 @@
 # Copyright (C) 2013  Laurent Peuch <cortex@worlddomination.be>
 
 import os
-import json
+import ijson
 from os.path import join
 from datetime import datetime
 import urllib
@@ -73,7 +73,8 @@ class Command(BaseCommand):
         print "unxz dump"
         os.system("unxz %s" % JSON_DUMP_ARCHIVE_LOCALIZATION)
         print "load json"
-        meps = json.load(open(JSON_DUMP_LOCALIZATION, "r"))
+        #meps = json.load(open(JSON_DUMP_LOCALIZATION, "r"))
+        meps = json_parser_generator(JSON_DUMP_LOCALIZATION)
         print "Set all current active mep to unactive before importing"
         with transaction.commit_on_success():
             MEP.objects.filter(active=True).update(active=False)
@@ -457,6 +458,12 @@ def create_mep(mep_json):
     # print "     save mep modifications"
     mep.save()
 
+def json_parser_generator(json_file):
+    """Parse the json and yield one parltrack vote at the time
+     I need to parse the json file by hand, otherwise this eat way too much memory
+    """
+    for item in ijson.items(open(json_file), 'item'):
+        yield item
 
 def clean():
     Delegation.objects.annotate(mep_count=Count('mep')).filter(mep_count=0).delete()
