@@ -21,8 +21,9 @@ from datetime import date
 from django.db import models
 from django.db.models import Count
 from django.core.urlresolvers import reverse
+from django.contrib.contenttypes.fields import GenericRelation
 from django.template.defaultfilters import slugify
-
+from a2mep.models import Post
 
 CURRENT_MAGIC_VAL = date(9999, 12, 31)
 
@@ -245,6 +246,7 @@ class MEP(models.Model):
     committees = models.ManyToManyField(Committee, through='CommitteeRole')
     organizations = models.ManyToManyField(Organization, through='OrganizationMEP')
     total_score = models.FloatField(default=None, null=True)
+    posts = GenericRelation(Post)
 
     def age(self):
         if date.today().month > self.birth_date.month:
@@ -440,9 +442,10 @@ class Motion(models.Model):
     url = models.URLField(null=True)
     date = models.DateField()
     term = models.IntegerField()
+    posts = GenericRelation(Post)
 
     def __unicode__(self):
-        return self.mep, self.title
+        return u"%s -- by -- %s" % (self.title, ', '.join(x.full_name for x in self.meps.all()))
 
 LANGUAGES = [
     ("bg", u"български"),
@@ -478,9 +481,10 @@ class Question(models.Model):
     date = models.DateField()
     term = models.IntegerField()
     lang = models.CharField(max_length=2, choices=LANGUAGES, default='en')
+    posts = GenericRelation(Post)
 
     def __unicode__(self):
-        return self.mep, self.title
+        return u"%s: %s" % (self.mep, self.title)
 
 class Speech(models.Model):
     mep = models.ForeignKey(MEP)
@@ -490,20 +494,23 @@ class Speech(models.Model):
     date = models.DateField()
     term = models.IntegerField()
     lang = models.CharField(max_length=2, choices=LANGUAGES, default='en')
+    posts = GenericRelation(Post)
 
     def __unicode__(self):
-        return self.mep, self.title
+        return u"%s: %s" % (self.mep, self.title)
 
 class Subject(models.Model):
     code = models.CharField(max_length=32)
     subject = models.CharField(max_length=256)
+    posts = GenericRelation(Post)
 
     def __unicode__(self):
-        return "%s - %s" % (self.code, self.subject)
+        return u"%s - %s" % (self.code, self.subject)
 
 class Dossier(models.Model):
     reference = models.CharField(max_length=32)
     subjects = models.ManyToManyField(Subject, related_name='topics')
+    posts = GenericRelation(Post)
 
     def __unicode__(self):
         return self.reference
@@ -523,9 +530,10 @@ class Rapporteur(models.Model):
     url = models.URLField(null=True)
     date = models.DateField()
     term = models.IntegerField()
+    posts = GenericRelation(Post)
 
     def __unicode__(self):
-        return u"%s - %s" % (self.mep, self.title)
+        return u"%s - %s - %s" % (self.mep, TYPEMAP[self.type], self.title)
 
 class Amendment(models.Model):
     dossier = models.ForeignKey(Dossier)
@@ -537,6 +545,19 @@ class Amendment(models.Model):
     seq = models.SmallIntegerField()
     date = models.DateField()
     location = models.CharField(max_length=255)
+    posts = GenericRelation(Post)
 
     def __unicode__(self):
-        return self.reference
+        return u"#%s %s" % (self.seq, self.dossier)
+
+class Tweet(models.Model):
+    mep = models.ForeignKey(MEP)
+    text = models.TextField()
+    tweetid = models.CharField(max_length=32, unique=True)
+    date = models.DateField()
+    location = models.CharField(max_length=255, null=True)
+    geo = models.CharField(max_length=255, null=True)
+    posts = GenericRelation(Post)
+
+    def __unicode__(self):
+        return self.text
