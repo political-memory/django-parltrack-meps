@@ -1,5 +1,0 @@
-django
-django-tastypie
-guess-language
-lxml
-ijson
