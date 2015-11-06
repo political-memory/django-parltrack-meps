@@ -1,0 +1,16 @@
+sudo: false
+env:
+  - DEBUG=True
+language: python
+python:
+  - "2.7"
+install:
+  - pip install django
+  - pip install -e .
+  - wget https://github.com/political-memory/political_memory/archive/openshift.tar.gz
+  - tar xvzf openshift.tar.gz
+  - pip install -r political_memory-openshift/requirements.txt
+script:
+  - political_memory-openshift/manage.py migrate
+  - political_memory-openshift/manage.py update_meps
+  - political_memory-openshift/manage.py update_admendments
